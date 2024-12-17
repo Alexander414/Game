@@ -9,34 +9,56 @@
 <body>
     <h1>Idle Game</h1>
 
-    <div class="resource-container">
-        <div class="resource">
-            <h3>Wood</h3>
-            <p><span id="wood-count">0</span> / <span id="wood-limit">200</span></p>
-        </div>
-        <div class="resource">
-            <h3>Food</h3>
-            <p><span id="food-count">0</span> / <span id="food-limit">100</span></p>
-        </div>
-        <div class="resource">
-            <h3>Stone</h3>
-            <p><span id="stone-count">0</span> / <span id="stone-limit">200</span></p>
+    <div class="storage-container">
+        <h2>Storage</h2>
+        <div class="storage-box">
+            <p>Wood: <span id="wood-count">0</span> / <span id="wood-limit">200</span></p>
+            <p>Food: <span id="food-count">0</span> / <span id="food-limit">100</span></p>
+            <p>Stone: <span id="stone-count">0</span> / <span id="stone-limit">200</span></p>
+            <p>Workers: <span id="worker-count">0</span> / <span id="worker-limit">0</span></p>
+            <p>Knowledge: <span id="knowledge-count">0</span> (+<span id="knowledge-rate">1</span>/s)</p>
         </div>
     </div>
 
-    <div class="buttons-container">
-        <button class="gather-button" data-type="wood">Gather Wood</button>
-        <button class="gather-button" data-type="food">Gather Food</button>
-        <button class="gather-button" data-type="stone">Gather Stone</button>
+    <!-- Tab Buttons -->
+    <div class="tabs">
+        <button class="tab-button" onclick="switchTab('resources')">Resources</button>
+        <button class="tab-button" onclick="switchTab('knowledge')">Knowledge</button>
+        <button class="tab-button" onclick="switchTab('buildings')">Buildings</button>
+        <button class="tab-button" onclick="switchTab('government')">Government</button>
     </div>
 
-    <div id="buildings-container">
-        <div class="building" id="lumber-mill">
-            <button class="build-button" data-type="lumberMill" title="Increase storage for wood by 100%">Build Lumber Mill (100 Wood)</button>
+    <!-- Resource Gathering -->
+    <div id="resources-tab" class="tab-content">
+        <h2>Gather Resources</h2>
+        <div class="gather-container">
+            <button class="gather-button" data-type="wood">Gather Wood</button>
+            <button class="gather-button" data-type="food">Gather Food</button>
+            <button class="gather-button" data-type="stone">Gather Stone</button>
         </div>
-        <div class="building" id="stone-quarry">
-            <button class="build-button" data-type="stoneQuarry" title="Increase storage for stone by 100%">Build Stone Quarry (100 Stone)</button>
-        </div>
+    </div>
+
+    <!-- Knowledge Upgrades -->
+    <div id="knowledge-tab" class="tab-content" style="display: none;">
+        <h2>Knowledge Upgrades</h2>
+        <button id="housing-upgrade" onclick="purchaseHousingUpgrade()" title="Increase worker limit by 2. Costs 50 Food and 100 Knowledge.">Research Housing (50 Food, 100 Knowledge)</button>
+    </div>
+
+    <!-- Buildings -->
+    <div id="buildings-tab" class="tab-content" style="display: none;">
+        <h2>Build Structures</h2>
+        <button id="lumber-mill-button" onclick="buildBuilding('lumberMill')" title="Increase wood storage by 100%. Costs 100 Wood.">Build Lumber Mill</button>
+        <button id="stone-quarry-button" onclick="buildBuilding('stoneQuarry')" title="Increase stone storage by 100%. Costs 100 Stone.">Build Stone Quarry</button>
+        <button id="house-button" onclick="buildBuilding('house')" title="Increase worker limit by 2. Costs 100 Wood.">Build House</button>
+    </div>
+
+    <!-- Government (Workers) -->
+    <div id="government-tab" class="tab-content" style="display: none;">
+        <h2>Assign Workers</h2>
+        <p>Unassigned Workers: <span id="unassigned-workers">0</span></p>
+        <button onclick="assignWorker('farmer')">Assign Farmer</button> (<span id="farmer-count">0</span>)
+        <button onclick="assignWorker('woodcutter')">Assign Woodcutter</button> (<span id="woodcutter-count">0</span>)
+        <button onclick="assignWorker('miner')">Assign Miner</button> (<span id="miner-count">0</span>)
     </div>
 
     <div id="log">Log:</div>
