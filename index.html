@@ -8,16 +8,19 @@
 </head>
 <body>
     <h1>Idle Game</h1>
-    
+
     <div class="resource-container">
         <div class="resource">
-            <h3>Wood: <span id="wood-count">0</span> / <span id="wood-limit">200</span></h3>
+            <h3>Wood</h3>
+            <p><span id="wood-count">0</span> / <span id="wood-limit">200</span></p>
         </div>
         <div class="resource">
-            <h3>Food: <span id="food-count">0</span> / <span id="food-limit">100</span></h3>
+            <h3>Food</h3>
+            <p><span id="food-count">0</span> / <span id="food-limit">100</span></p>
         </div>
         <div class="resource">
-            <h3>Stone: <span id="stone-count">0</span> / <span id="stone-limit">200</span></h3>
+            <h3>Stone</h3>
+            <p><span id="stone-count">0</span> / <span id="stone-limit">200</span></p>
         </div>
     </div>
 
@@ -29,10 +32,10 @@
 
     <div id="buildings-container">
         <div class="building" id="lumber-mill">
-            <button onclick="buildBuilding('lumberMill')">Build Lumber Mill (100 Wood)</button>
+            <button class="build-button" onclick="buildBuilding('lumberMill')" title="Increase storage for wood by 100%">Build Lumber Mill (100 Wood)</button>
         </div>
         <div class="building" id="stone-quarry">
-            <button onclick="buildBuilding('stoneQuarry')">Build Stone Quarry (100 Stone)</button>
+            <button class="build-button" onclick="buildBuilding('stoneQuarry')" title="Increase storage for stone by 100%">Build Stone Quarry (100 Stone)</button>
         </div>
     </div>
 
