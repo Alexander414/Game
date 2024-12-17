@@ -1,8 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -22,27 +22,42 @@ h1 {
 }
 
 .resource {
+    padding: 10px;
     background: #fff;
     border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .buttons-container {
-    text-align: center;
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
 }
 
 button {
-    margin: 5px;
     padding: 10px 20px;
     font-size: 16px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
 }
 
 button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.build-button {
+    display: none;
+    margin-top: 10px;
+}
+
+.build-button[disabled] {
     background-color: #ccc;
     cursor: not-allowed;
 }
@@ -51,26 +66,12 @@ button:disabled {
     position: fixed;
     bottom: 10px;
     right: 10px;
+    width: 300px;
+    height: 150px;
     background: #222;
     color: #fff;
+    border-radius: 5px;
     padding: 10px;
-    width: 350px;
-    height: 150px;
     overflow-y: auto;
     font-size: 12px;
-    border-radius: 5px;
-}
-
-#buildings-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.building {
-    display: none;
-    margin-top: 10px;
-}
-
-.build-button {
-    position: relative;
 }
