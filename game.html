@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Idle Game</h1>
+    
+    <div class="resource-container">
+        <div class="resource">
+            <h3>Wood: <span id="wood-count">0</span> / <span id="wood-limit">200</span></h3>
+        </div>
+        <div class="resource">
+            <h3>Food: <span id="food-count">0</span> / <span id="food-limit">100</span></h3>
+        </div>
+        <div class="resource">
+            <h3>Stone: <span id="stone-count">0</span> / <span id="stone-limit">200</span></h3>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button onclick="gatherResource('wood')">Gather Wood</button>
+        <button onclick="gatherResource('food')">Gather Food</button>
+        <button onclick="gatherResource('stone')">Gather Stone</button>
+    </div>
+
+    <div id="buildings-container">
+        <div class="building" id="lumber-mill">
+            <button onclick="buildBuilding('lumberMill')">Build Lumber Mill (100 Wood)</button>
+        </div>
+        <div class="building" id="stone-quarry">
+            <button onclick="buildBuilding('stoneQuarry')">Build Stone Quarry (100 Stone)</button>
+        </div>
+    </div>
+
+    <div id="log">Log:</div>
+
+    <script src="game.js"></script>
+</body>
+</html>
