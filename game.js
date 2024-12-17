@@ -1,27 +1,42 @@
 // Resources
-let wood = 0, woodLimit = 200;
-let food = 0, foodLimit = 100;
-let stone = 0, stoneLimit = 200;
+let resources = {
+    wood: { count: 0, limit: 200 },
+    food: { count: 0, limit: 100 },
+    stone: { count: 0, limit: 200 }
+};
 
-const woodCountEl = document.getElementById('wood-count');
-const foodCountEl = document.getElementById('food-count');
-const stoneCountEl = document.getElementById('stone-count');
-const woodLimitEl = document.getElementById('wood-limit');
-const foodLimitEl = document.getElementById('food-limit');
-const stoneLimitEl = document.getElementById('stone-limit');
 const logEl = document.getElementById('log');
-const lumberMillButton = document.querySelector('#lumber-mill button');
-const stoneQuarryButton = document.querySelector('#stone-quarry button');
 
 function updateUI() {
-    woodCountEl.innerText = wood;
-    foodCountEl.innerText = food;
-    stoneCountEl.innerText = stone;
-    woodLimitEl.innerText = woodLimit;
-    foodLimitEl.innerText = foodLimit;
-    stoneLimitEl.innerText = stoneLimit;
-    checkBuildings();
-    updateButtonStates();
+    for (let [type, { count, limit }] of Object.entries(resources)) {
+        document.getElementById(`${type}-count`).innerText = count;
+        document.getElementById(`${type}-limit`).innerText = limit;
+    }
+
+    document.querySelectorAll('.build-button').forEach(button => {
+        const type = button.dataset.type;
+        const cost = type === 'lumberMill' ? 100 : 100;
+        button.disabled = resources[type === 'lumberMill' ? 'wood' : 'stone'].count < cost;
+    });
+}
+
+function gatherResource(type) {
+    if (resources[type].count < resources[type].limit) {
+        resources[type].count++;
+        updateUI();
+    }
+}
+
+function buildBuilding(type) {
+    const cost = type === 'lumberMill' ? 100 : 100;
+    const resourceType = type === 'lumberMill' ? 'wood' : 'stone';
+
+    if (resources[resourceType].count >= cost) {
+        resources[resourceType].count -= cost;
+        resources[resourceType].limit *= 2;
+        log(`You built a ${type === 'lumberMill' ? 'Lumber Mill' : 'Stone Quarry'}!`);
+        updateUI();
+    }
 }
 
 function log(message) {
@@ -29,56 +44,12 @@ function log(message) {
     logEl.scrollTop = logEl.scrollHeight;
 }
 
-function gatherResource(type) {
-    switch(type) {
-        case 'wood':
-            if (wood < woodLimit) {
-                wood++;
-                updateUI();
-            }
-            break;
-        case 'food':
-            if (food < foodLimit) {
-                food++;
-                updateUI();
-            }
-            break;
-        case 'stone':
-            if (stone < stoneLimit) {
-                stone++;
-                updateUI();
-            }
-            break;
-    }
-}
+document.querySelectorAll('.gather-button').forEach(button => {
+    button.addEventListener('click', () => gatherResource(button.dataset.type));
+});
 
-function checkBuildings() {
-    if (wood >= 50) {
-        document.getElementById('lumber-mill').style.display = 'block';
-    }
-    if (stone >= 50) {
-        document.getElementById('stone-quarry').style.display = 'block';
-    }
-}
-
-function updateButtonStates() {
-    lumberMillButton.disabled = wood < 100;
-    stoneQuarryButton.disabled = stone < 100;
-}
-
-function buildBuilding(type) {
-    if (type === 'lumberMill' && wood >= 100) {
-        wood -= 100;
-        woodLimit *= 2; // Double the wood storage
-        updateUI();
-        log('You built a Lumber Mill! Wood storage increased.');
-    }
-    if (type === 'stoneQuarry' && stone >= 100) {
-        stone -= 100;
-        stoneLimit *= 2; // Double the stone storage
-        updateUI();
-        log('You built a Stone Quarry! Stone storage increased.');
-    }
-}
+document.querySelectorAll('.build-button').forEach(button => {
+    button.addEventListener('click', () => buildBuilding(button.dataset.type));
+});
 
 updateUI();
