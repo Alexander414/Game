@@ -25,17 +25,17 @@
     </div>
 
     <div class="buttons-container">
-        <button onclick="gatherResource('wood')">Gather Wood</button>
-        <button onclick="gatherResource('food')">Gather Food</button>
-        <button onclick="gatherResource('stone')">Gather Stone</button>
+        <button class="gather-button" data-type="wood">Gather Wood</button>
+        <button class="gather-button" data-type="food">Gather Food</button>
+        <button class="gather-button" data-type="stone">Gather Stone</button>
     </div>
 
     <div id="buildings-container">
         <div class="building" id="lumber-mill">
-            <button class="build-button" onclick="buildBuilding('lumberMill')" title="Increase storage for wood by 100%">Build Lumber Mill (100 Wood)</button>
+            <button class="build-button" data-type="lumberMill" title="Increase storage for wood by 100%">Build Lumber Mill (100 Wood)</button>
         </div>
         <div class="building" id="stone-quarry">
-            <button class="build-button" onclick="buildBuilding('stoneQuarry')" title="Increase storage for stone by 100%">Build Stone Quarry (100 Stone)</button>
+            <button class="build-button" data-type="stoneQuarry" title="Increase storage for stone by 100%">Build Stone Quarry (100 Stone)</button>
         </div>
     </div>
 
