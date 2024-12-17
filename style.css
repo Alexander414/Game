@@ -3,63 +3,44 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    text-align: center;
 }
 
 h1 {
-    text-align: center;
-}
-
-.resource-container {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.resource {
-    padding: 10px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.buttons-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    gap: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-    transition: background-color 0.3s;
-}
-
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.build-button {
-    display: none;
     margin-top: 10px;
 }
 
-.build-button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
+.storage-container {
+    text-align: left;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.storage-box {
+    border: 1px solid #aaa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.tabs {
+    margin: 20px 0;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.tab-content {
+    margin: 20px;
+}
+
+.gather-container, .tab-content button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
 }
 
 #log {
@@ -69,9 +50,9 @@ button:disabled {
     width: 300px;
     height: 150px;
     background: #222;
-    color: #fff;
+    color: white;
     border-radius: 5px;
-    padding: 10px;
     overflow-y: auto;
+    padding: 10px;
     font-size: 12px;
 }
