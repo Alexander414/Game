@@ -10,6 +10,8 @@ const woodLimitEl = document.getElementById('wood-limit');
 const foodLimitEl = document.getElementById('food-limit');
 const stoneLimitEl = document.getElementById('stone-limit');
 const logEl = document.getElementById('log');
+const lumberMillButton = document.querySelector('#lumber-mill button');
+const stoneQuarryButton = document.querySelector('#stone-quarry button');
 
 function updateUI() {
     woodCountEl.innerText = wood;
@@ -19,6 +21,7 @@ function updateUI() {
     foodLimitEl.innerText = foodLimit;
     stoneLimitEl.innerText = stoneLimit;
     checkBuildings();
+    updateButtonStates();
 }
 
 function log(message) {
@@ -58,6 +61,11 @@ function checkBuildings() {
     }
 }
 
+function updateButtonStates() {
+    lumberMillButton.disabled = wood < 100;
+    stoneQuarryButton.disabled = stone < 100;
+}
+
 function buildBuilding(type) {
     if (type === 'lumberMill' && wood >= 100) {
         wood -= 100;
@@ -72,3 +80,5 @@ function buildBuilding(type) {
         log('You built a Stone Quarry! Stone storage increased.');
     }
 }
+
+updateUI();
