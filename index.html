@@ -47,7 +47,7 @@
     <!-- Knowledge Upgrades -->
     <div id="knowledge-tab" class="tab-content" style="display: none;">
         <h2>Knowledge Upgrades</h2>
-        <button id="housing-upgrade" onclick="purchaseHousingUpgrade()" title="Increase worker limit by 2. Costs 50 Food and 100 Knowledge.">Research Housing (50 Food, 100 Knowledge)</button>
+        <button id="housing-upgrade" title="Increase worker limit by 2. Costs 50 Food and 100 Knowledge.">Research Housing (50 Food, 100 Knowledge)</button>
     </div>
 
     <!-- Buildings -->
@@ -62,6 +62,7 @@
     <div id="government-tab" class="tab-content" style="display: none;">
         <h2>Assign Workers</h2>
         <p>Unassigned Workers: <span id="unassigned-workers">0</span></p>
+        <button id="hire-worker">Hire Worker (10 Food)</button>
         <button onclick="assignWorker('farmer')">Assign Farmer</button> (<span id="farmer-count">0</span>)
         <button onclick="assignWorker('woodcutter')">Assign Woodcutter</button> (<span id="woodcutter-count">0</span>)
         <button onclick="assignWorker('miner')">Assign Miner</button> (<span id="miner-count">0</span>)

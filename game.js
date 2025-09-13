@@ -11,6 +11,17 @@ let workers = { farmer: 0, woodcutter: 0, miner: 0 };
 
 const logEl = document.getElementById('log');
 
+// Utility to safely modify resources
+function addResource(type, amount) {
+    const res = resources[type];
+    if (!res) return;
+    res.count += amount;
+    if ('limit' in res) {
+        res.count = Math.min(res.count, res.limit);
+    }
+    res.count = Math.max(res.count, 0);
+}
+
 // Update UI
 function updateUI() {
     document.getElementById('wood-count').innerText = resources.wood.count;
@@ -30,24 +41,22 @@ function updateUI() {
 
 // Resource Gathering
 function gatherResource(type) {
-    if (resources[type].count < resources[type].limit) {
-        resources[type].count++;
-        updateUI();
-    }
+    addResource(type, 1);
+    updateUI();
 }
 
 // Build Structures
 function buildBuilding(type) {
     if (type === 'house' && resources.wood.count >= 100) {
-        resources.wood.count -= 100;
+        addResource('wood', -100);
         resources.workers.limit += 2;
         log('You built a House!');
     } else if (type === 'lumberMill' && resources.wood.count >= 100) {
-        resources.wood.count -= 100;
+        addResource('wood', -100);
         resources.wood.limit *= 2;
         log('You built a Lumber Mill!');
     } else if (type === 'stoneQuarry' && resources.stone.count >= 100) {
-        resources.stone.count -= 100;
+        addResource('stone', -100);
         resources.stone.limit *= 2;
         log('You built a Stone Quarry!');
     }
@@ -63,11 +72,20 @@ function assignWorker(job) {
     }
 }
 
+// Hire new workers
+function hireWorker() {
+    if (resources.food.count >= 10 && resources.workers.count < resources.workers.limit) {
+        addResource('food', -10);
+        resources.workers.count++;
+        updateUI();
+    }
+}
+
 // Housing Upgrade
 function purchaseHousingUpgrade() {
     if (resources.food.count >= 50 && resources.knowledge.count >= 100) {
-        resources.food.count -= 50;
-        resources.knowledge.count -= 100;
+        addResource('food', -50);
+        addResource('knowledge', -100);
         document.getElementById('house-button').style.display = 'inline-block';
         log('Housing upgrade researched!');
         updateUI();
@@ -136,18 +154,17 @@ document.querySelectorAll('.gather-button').forEach(button => {
     button.addEventListener('click', () => gatherResource(button.dataset.type));
 });
 
-document.querySelectorAll('.build-button').forEach(button => {
-    button.addEventListener('click', () => buildBuilding(button.dataset.type));
-});
-
 document.getElementById('export-save').addEventListener('click', exportSave);
 document.getElementById('import-save').addEventListener('click', () => document.getElementById('save-file').click());
 document.getElementById('save-file').addEventListener('change', importSave);
+document.getElementById('hire-worker').addEventListener('click', hireWorker);
+document.getElementById('housing-upgrade').addEventListener('click', purchaseHousingUpgrade);
 
 setInterval(() => {
-    resources.knowledge.count += resources.knowledge.rate;
-    resources.food.count -= workers.farmer * 0.25;
-    resources.food.count = Math.max(resources.food.count, 0); // Prevent negative food
+    addResource('knowledge', resources.knowledge.rate);
+    addResource('wood', workers.woodcutter);
+    addResource('stone', workers.miner);
+    addResource('food', workers.farmer - 0.25 * (workers.farmer + workers.woodcutter + workers.miner));
     updateUI();
 }, 1000);
 
